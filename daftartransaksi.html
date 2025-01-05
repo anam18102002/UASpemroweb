@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Daftar Transaksi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 20px;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        li {
+            padding: 10px;
+            margin-bottom: 5px;
+            background: #fff;
+            border: 1px solid #ddd;
+        }
+        footer {
+            background: #333;
+            color: #fff;
+            padding: 0.1px ;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            font-size: 0.3em;
+            height: 15px;
+        }
+    </style>
+    <script>
+        function loadTransactions() {
+            const savedTransactions = localStorage.getItem('transactions');
+            const transactionList = document.getElementById('transactionList');
+            transactionList.innerHTML = '';
+
+            if (savedTransactions) {
+                const transactions = JSON.parse(savedTransactions);
+                transactions.forEach((transaction, index) => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = `${index + 1}. ${transaction.productName} - Jumlah: ${transaction.quantity}, Harga Satuan: Rp. ${transaction.unitPrice}, Total: Rp. ${transaction.totalPrice}, Tanggal: ${transaction.transactionDate}`;
+                    transactionList.appendChild(listItem);
+                });
+            }
+        }
+    </script>
+</head>
+<header>
+</header>
+<body onload="loadTransactions()">
+    <header>
+        <h1>Daftar Transaksi</h1>
+    </header>
+    <main>
+        <ul id="transactionList"></ul>
+    </main>
+    <footer>
+        <p>&copy; 2024 ANAM shop. All rights reserved.</p>
+    </footer>
+</body>
+</html>

@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ANAM shop</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f9;
+            color: #333;
+        }
+        header {
+            background: #333;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        header img {
+            max-width: 10%;
+            height: auto;
+        }
+        nav {
+            background: #555;
+            color: #fff;
+            padding: 5px;
+            text-align: center;
+        }
+        nav ul {
+            list-style-type: none; 
+            padding: 0; 
+            margin: 0; 
+        }
+        nav a {
+            color: #fff;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+        nav a:hover {
+            text-decoration: underline;
+        }
+        main {
+            padding: 20px;
+            text-align: center;
+        }
+        footer {
+            background: #333;
+            color: #fff;
+            padding: 0.1px ;
+            text-align: center;
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            font-size: 0.3em;
+            height: 15px;
+        }
+        img {
+            max-width: 100%;
+            height: auto;
+        }
+        section {
+            display: none;
+        }
+        section:target {
+            display: block;
+        }
+        .product-container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            margin: 20px 0;
+        }
+        .product {
+            width: 25%; 
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .product img {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        th, td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: left;
+        }
+    
+    .step-box {
+        background-color: #ffffff;
+        border: 1px solid #ddd;
+        border-radius: 8px;
+        padding: 20px;
+        margin: 20px 0;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+
+    .step-box h3 {
+        color: #333;
+        font-size: 20px;
+        margin-bottom: 10px;
+    }
+
+    .step-box p {
+        font-size: 14px;
+        color: #555;
+    }
+
+    .step-box a {
+        color: #249c48;
+        text-decoration: none;
+    }
+
+    .step-box a:hover {
+        text-decoration: underline;
+    }
+
+    </style>
+    <script>
+        function calculateTotal() {
+            const quantity = document.getElementById('quantity').value;
+            const unitPrice = document.getElementById('unitPrice').value;
+            const totalPrice = quantity * unitPrice;
+            document.getElementById('totalPrice').value = totalPrice;
+        }
+    
+        function validateForm(event) {
+            event.preventDefault(); 
+    
+            const productName = document.getElementById('productName').value;
+            const quantity = document.getElementById('quantity').value;
+            const unitPrice = document.getElementById('unitPrice').value;
+            const totalPrice = document.getElementById('totalPrice').value;
+            const transactionDate = document.getElementById('transactionDate').value;
+    
+            
+            const transaction = {
+                productName,
+                quantity,
+                unitPrice,
+                totalPrice,
+                transactionDate
+            };
+    
+            let transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+            transactions.push(transaction);
+            localStorage.setItem('transactions', JSON.stringify(transactions));
+    
+            
+            alert('Transaksi berhasil disimpan!');
+            document.querySelector('form').reset();
+        }
+    
+        function loadTransactions() {
+            const transactions = JSON.parse(localStorage.getItem('transactions')) || [];
+            const transactionList = document.getElementById('transactionList');
+            transactionList.innerHTML = '';
+    
+            transactions.forEach((transaction, index) => {
+                const row = `<tr>
+                    <td>${index + 1}</td>
+                    <td>${transaction.productName}</td>
+                    <td>${transaction.quantity}</td>
+                    <td>${transaction.unitPrice}</td>
+                    <td>${transaction.totalPrice}</td>
+                    <td>${transaction.transactionDate}</td>
+                </tr>`;
+                transactionList.innerHTML += row;
+            });
+        }
+    </script>
+</head>
+<body onload="loadTransactions()">
+    <header>
+        <h1>Welcome to ANAM shop</h1>
+        <img src="LOGO A.jpg">
+    </header>
+    <nav>
+        <ul>
+            <li><a href="#Beranda">Beranda</a></li>
+            <li><a href="#Transaksi">Transaksi</a></li>
+            <li><a href="#Profil">Profil</a></li>
+            <li><a href="login.html">Login</a></li>
+        </ul>
+    </nav>
+    <main>
+        <section id="Beranda">
+            <h2>Panduan Penggunaan Aplikasi Web ANAM shop</h2>
+            <p>Selamat datang di ANAM shop! Berikut adalah tutorial cara menggunakan website ini:</p>
+        
+            <h3>Langkah 1: Lakukan Login</h3>
+            <p>Untuk dapat melakukan transaksi, Anda perlu login terlebih dahulu:</p>
+            <div>
+                <p><strong>Kunjungi halaman <a href="login.html">Login</a>.</strong></p>
+                <p><strong>Masukkan <strong>Username/Email</strong> dan <strong>Password</strong>.</strong></p>
+                <p><strong>Tekan tombol <strong>Login</strong> untuk masuk.</strong></p>
+                <p><strong>Jika login berhasil, Anda akan diarahkan ke halaman utama.</strong></p>
+            </div>
+        
+            <h3>Langkah 2: Melakukan Transaksi</h3>
+            <p>Setelah login, Anda dapat melanjutkan untuk melakukan transaksi:</p>
+            <div>
+                <p><strong>Kunjungi menu <strong>Transaksi</strong> di bagian atas halaman.</strong></p>
+                <p><strong>Isi form transaksi yang tersedia dengan lengkap:</strong></p>
+                <div>
+                    <p><strong>Nama Produk</strong>: Masukkan nama produk yang ingin Anda beli.</p>
+                    <p><strong>Jumlah</strong>: Tentukan jumlah produk yang akan dibeli.</p>
+                    <p><strong>Harga Satuan</strong>: Masukkan harga satuan produk.</p>
+                    <p><strong>Total Harga</strong>: Harga akan dihitung otomatis berdasarkan jumlah dan harga satuan.</p>
+                    <p><strong>Tanggal Transaksi</strong>: Pilih tanggal transaksi menggunakan kalender yang disediakan.</p>
+                </div>
+                <p><strong>Tekan tombol <strong>Simpan Transaksi</strong> untuk menyimpan transaksi Anda.</strong></p>
+            </div>
+            
+            <h3>Langkah 3: Melihat Daftar Transaksi</h3>
+            <p>Setelah melakukan transaksi, Anda dapat melihat daftar transaksi yang sudah tercatat:</p>
+            <div>
+                <p><strong>Kunjungi halaman <a href="daftartransaksi.html">Daftar Transaksi</a>.</strong></p>
+                <p><strong>Daftar transaksi yang telah Anda lakukan akan muncul di halaman ini.</strong></p>
+            </div>
+            <p>Semoga panduan ini membantu Anda dalam menggunakan website ANAM shop! Jika ada pertanyaan lebih lanjut, silakan hubungi kami.</p>
+        </section>
+        
+        
+        </section>
+        <section id="Transaksi">
+            <h2>Transaksi</h2>
+            <p>Silahkan isi form di bawah ini untuk melakukan transaksi:</p>
+            <div id="errorMessage" style="color: red;"></div>
+            <form action="" method="post" onsubmit="validateForm(event)">
+                <label for="productName">Nama Produk:</label>
+                <input type="text" id="productName" name="productName" required placeholder="Masukkan Nama Produk"><br><br>
+
+                <label for="quantity">Jumlah:</label>
+                <input type="number" id="quantity" name="quantity" required placeholder="Masukkan Jumlah" min="1" oninput="calculateTotal()"><br><br>
+
+                <label for="unitPrice">Harga Satuan:</label>
+                <input type="text" id="unitPrice" name="unitPrice" required placeholder="Masukkan Harga Satuan" oninput="calculateTotal()"><br><br>
+
+                <label for="totalPrice">Total Harga:</label>
+                <input type="text" id="totalPrice" name="totalPrice" required placeholder="Masukkan Total Harga" readonly><br><br>
+
+                <label for="transactionDate">Tanggal Transaksi:</label>
+                <input type="date" id="transactionDate" name="transactionDate" required><br><br>
+
+                <input type="submit" value="Simpan Transaksi">
+            </form>
+            <p></p>
+            <a href="daftartransaksi.html" style="color: blue; text-decoration: underline;">Daftar Transaksi</a>
+        </section>
+        <section id="Profil">
+            <h2>Profil Toko</h2>
+            <p>ANAM shop merupakan tempat jual-beli online yang cepat, amanah dan terpercaya.
+               Didirikan oleh Samsul Anam pada tahun 2024.
+            </p>
+        </section>
+       
+    </main>
+    <footer>
+        <p>&copy; 2024 ANAM shop. All rights reserved.</p>
+    </footer>
+</body>
+</html>
